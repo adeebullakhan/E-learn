@@ -1,0 +1,9 @@
+#cart-sidebar.open {
+    transform: translateX(0);
+  }
+  #cart-overlay.show {
+    display: block;
+  }
+  .foter{
+    padding-top: 700px;
+  }

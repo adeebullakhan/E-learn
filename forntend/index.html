@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-learn</title>
+    
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+         <script src="https://cdn.tailwindcss.com"></script>   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 lg:px-20 flex justify-between items-center py-4">
+          <!-- Logo -->
+          <h1 class="text-3xl font-bold text-blue-600">e-Learn</h1>
+          
+          <!-- Navigation Links -->
+          <ul class="hidden md:flex space-x-6 text-lg font-medium text-gray-700">
+            <li><a href="index.html" class="hover:text-blue-600 transition">Home</a></li>
+            <li><a href="about.html" class="hover:text-blue-600 transition">About</a></li>
+            <li><a href="contact.html" class="hover:text-blue-600 transition">Contact</a></li>
+            <li><a href="your-courses.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-500 transition-all">
+                View Your Courses
+            </a></li>
+            
+          </ul>
+          
+          <!-- Cart Button -->
+          <div class="nav_cart cursor-pointer">
+            <i class="fa-solid fa-cart-shopping"></i> Cart
+          </div>
+          
+          
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden text-blue-600 text-2xl focus:outline-none" title="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+      
+      <!-- Cart Sidebar Drawer -->
+
+
+
+      <!-- <div class="cart-sidebar">
+        <h2 class="text-xl font-bold">Cart</h2>
+        <div id="cart-items"></div>
+        <p>Total: <span id="total-amount">$0.00</span></p>
+        <button id="checkout-btn" onclick="checkout()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Checkout</button>
+    </div> -->
+    
+<div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 p-6 z-50">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold">Your Cart</h2>
+      <button id="close-cart" class="text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+    </div>
+    <div id="cart-items" class="space-y-4 overflow-y-auto h-[65vh]"></div>
+    <button id="checkout-btn" class="mt-4 w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition hidden">Checkout</button>
+  </div>
+  
+  <!-- Overlay (for when cart opens) -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+  
+      
+      <section class="bg-gradient-to-r from-blue-600 to-purple-600 h-[80vh] flex items-center justify-center px-6 lg:px-20 mt-20">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <!-- Left Content -->
+          <div class="text-center lg:text-left max-w-2xl">
+            <h1 class="text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              Unlock Your <span class="text-yellow-400">Potential</span> with Online Learning
+            </h1>
+            <p class="mt-4 text-lg text-gray-200">
+              Access top courses from world-class instructors and master new skills anytime, anywhere.
+            </p>
+            <div class="mt-6 flex justify-center lg:justify-start gap-4">
+              <a href="courses.html" class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg text-lg font-medium shadow-lg hover:bg-yellow-300 transition-all">
+                Browse Courses
+              </a>
+                 <a href="#" onclick="openSigninPopup(); return false;" 
+              class="border-2 border-white text-white px-6 py-3 rounded-lg text-lg font-medium shadow-lg hover:bg-white hover:text-gray-900 transition-all">
+              Get Started
+          </a>
+          
+            </div>
+         
+          </div>
+          
+          <!-- Right Content - Image -->
+          <div class="max-w-lg">
+            <img src="./assets/hero.png" alt="E-Learning" class="rounded-xl shadow-xl">
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Featured Courses Section -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-6 lg:px-20">
+      <h2 class="text-4xl font-bold text-gray-800 text-center mb-8">Featured Courses</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Course Cards -->
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="Full-Stack Web Development">
+          <img src="./assets/webdevelopment.jpg" alt="Course 1" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">Full-Stack Web Development</h3>
+          <p class="text-gray-600 mt-2">Learn to build modern web apps from scratch.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+  
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="UI/UX Design Fundamentals">
+          <img src="./assets/ui_ux.jpg" alt="Course 2" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">UI/UX Design Fundamentals</h3>
+          <p class="text-gray-600 mt-2">Master the principles of user experience design.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+  
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="Data Science & Machine Learning">
+          <img src="./assets/datascience.jpg" alt="Course 3" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">Data Science & Machine Learning</h3>
+          <p class="text-gray-600 mt-2">Explore the power of AI and data analytics.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+  
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="Digital Marketing">
+          <img src="./assets/digital_marketing.jpg" alt="Course 4" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">Digital Marketing</h3>
+          <p class="text-gray-600 mt-2">Learn SEO, SEM, and social media strategies.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+  
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="Cybersecurity Basics">
+          <img src="./assets/cybersecurity.jpg" alt="Course 5" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">Cybersecurity Basics</h3>
+          <p class="text-gray-600 mt-2">Protect systems from cyber threats.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+  
+        <div class="course bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition" data-course="Photography & Video Editing">
+          <img src="./assets/photography.jpg" alt="Course 6" class="rounded-lg">
+          <h3 class="text-xl font-semibold mt-4">Photography & Video Editing</h3>
+          <p class="text-gray-600 mt-2">Master composition and video editing techniques.</p>
+          <button class="enroll-btn mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10">
+    <div class="container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- About Section -->
+      <div>
+        <h2 class="text-2xl font-bold text-yellow-400">E-Learn</h2>
+        <p class="mt-3 text-gray-200">
+          Unlock your potential with the best online courses. Learn anytime, anywhere.
+        </p>
+      </div>
+  
+      <!-- Social Media -->
+      <div>
+        <h3 class="text-xl font-semibold text-yellow-400">Follow Us</h3>
+        <div class="mt-3 flex space-x-4">
+          <a href="#" class="text-gray-200 hover:text-yellow-300 text-2xl" title="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="#" class="text-gray-200 hover:text-yellow-300 text-2xl" title="Twitter">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="#" class="text-gray-200 hover:text-yellow-300 text-2xl" title="instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="text-gray-200 hover:text-yellow-300 text-2xl" title="linkedin">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  
+    <!-- Copyright -->
+    <div class="text-center mt-8 border-t border-gray-500 pt-4 text-gray-200">
+      &copy; 2025 E-Learn. All Rights Reserved.
+    </div>
+  </footer>
+  
+  
+<!-- Signup Popup -->
+<div id="signup-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+        <button onclick="closeSignupPopup()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">
+            &times;
+        </button>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Create an Account</h2>
+        
+        <form id="signup-form">
+            <label class="block text-gray-700">Full Name</label>
+            <input type="text" class="w-full p-2 border rounded-lg mb-3" title="fullname" required >
+
+            <label class="block text-gray-700">Email</label>
+            <input type="email" class="w-full p-2 border rounded-lg mb-3" title="email" required>
+
+            <label class="block text-gray-700">Password</label>
+            <input type="password" class="w-full p-2 border rounded-lg mb-3" required title="password">
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-500">
+                Sign Up
+            </button>
+        </form>
+
+        <p class="text-sm text-gray-600 text-center mt-3">Already have an account? 
+            <a href="#" onclick="openSigninPopup() && closeSignupPopup(); return false;" 
+            class="text-blue-600 hover:underline">
+                Login
+        </a>
+        </p>
+    </div>
+</div>
+
+
+//signin
+<!-- Sign In Popup -->
+<div id="signin-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+        <button onclick="closeSigninPopup()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">
+            &times;
+        </button>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Sign In to Your Account</h2>
+        
+        <form id="signin-form">
+            <label class="block text-gray-700">Email</label>
+            <input type="email" class="w-full p-2 border rounded-lg mb-3" required title="email">
+
+            <label class="block text-gray-700">Password</label>
+            <input type="password" class="w-full p-2 border rounded-lg mb-3" required title="password">
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-500">
+                Sign In
+            </button>
+        </form>
+
+        <p class="text-sm text-gray-600 text-center mt-3">Don't have an account? 
+            <a href="#" onclick="openSignupPopup(); closeSigninPopup(); return false;" class="text-blue-600 hover:underline">Sign Up</a>
+        </p>
+    </div>
+</div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
