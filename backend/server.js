@@ -3,8 +3,8 @@ const cors = require("cors");
 const connectDB = require("./db");
 
 const contactRoutes = require("./routes/contactRoutes");
-const contactRoutes = require("./routes/loginRoutes");
-const login = require("./models/login");
+const loginRoutes = require("./routes/loginRoutes");
+
 
 require("dotenv").config();
 

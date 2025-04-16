@@ -1,14 +1,14 @@
 const express = require("express");
-const Contact = require("../models/Login");
+const Login = require("../models/Login");
 const router = express.Router();
 
-// 📌 Contact Form Submission
+// 📌 login Form Submission
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const newLogin = new Contact({  email, password });
-    await newMessage.save();
+    const newLogin = new Login({  email, password });
+    await newLogin.save();
     res.status(201).json({ message: "Loggedin successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error" });

@@ -256,10 +256,39 @@ window.addEventListener("click", function (event) {
 });
 
 // Prevent form submission (For now, it just shows an alert)
-document.getElementById("signin-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    alert("Sign In Successful! (Backend Integration Needed)");
-    closeSigninPopup();
+// document.getElementById("signin-form").addEventListener("submit", function (event) {
+//     event.preventDefault();
+//     alert("Sign In Successful! (Backend Integration Needed)");
+//     closeSigninPopup();
+// });
+
+
+// login for db
+
+document.getElementById("signin-form").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("loginemail").value;
+  const password = document.getElementById("loginpassword").value;
+
+  const loginData = {  email, password };
+
+  try {
+      const response = await fetch("http://localhost:6050/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+          alert("loggedin  successfully!");
+          closeSigninPopup();
+      } else {
+          alert(`Error: ${data.message}`);
+      }
+  } catch (error) {
+      console.error("Contact Form Error:", error);
+      alert("Something went wrong!");
+  }
 });
-
-
