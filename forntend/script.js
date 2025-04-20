@@ -325,10 +325,10 @@ document.getElementById('signin-popup').addEventListener('submit', async (e) => 
   if (res.ok) {
     alert('Signin successful!');
     localStorage.setItem('token', result.token); // Save JWT
+    closeSigninPopup()
   } else {
     alert(result.message || 'Signin failed.');
   }
 
   form.reset();
-  closeSigninPopup()
 });
