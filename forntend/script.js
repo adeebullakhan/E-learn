@@ -99,29 +99,30 @@
       alert("Checkout successful! Thank you for your purchase.");
       cart = [];
       updateCartUI();
+      checkout(); /// changes 1
       closeCart();
     });
 /// added new code
-    function checkout() {
-      let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  //   function checkout() {
+  //     let cartItems = JSON.parse(localStorage.getItem("cartItems")) ;//|| [];
+    
+  //     if (cartItems.length === 0) {
+  //         alert("Your cart is empty!");
+  //         return;
+  //     }
   
-      if (cartItems.length === 0) {
-          alert("Your cart is empty!");
-          return;
-      }
+  //     //  Save checked-out courses to localStorage
+  //     localStorage.setItem("checkedOutCourses", JSON.stringify(cartItems));
+  //     console.log("Checked-out courses:", checkedOutCourses);
   
-      //  Save checked-out courses to localStorage
-      localStorage.setItem("checkedOutCourses", JSON.stringify(cartItems));
-      console.log("Checked-out courses:", checkedOutCourses);
+  //     // Clear the cart after checkout
+  //     localStorage.removeItem("cartItems");
   
-      // Clear the cart after checkout
-      localStorage.removeItem("cartItems");
+  //     alert("Checkout successful! Your courses have been added to 'Your Courses'.");
   
-      alert("Checkout successful! Your courses have been added to 'Your Courses'.");
-  
-      // Redirect to "Your Courses" page
-      window.location.href = "your-courses.html";
-  }
+  //     // Redirect to "Your Courses" page
+  //     window.location.href = "your-courses.html";
+  // }
   
 
 
@@ -207,12 +208,7 @@ function updateCartUI() {
 
 // Load Cart UI on Page Load
 document.addEventListener("DOMContentLoaded", updateCartUI);
-
-
-
-
   // signup popup
-
   function openSignupPopup() {
     document.getElementById("signup-popup").classList.remove("hidden");
 }
@@ -227,13 +223,6 @@ window.addEventListener("click", function (event) {
     if (event.target === popup) {
         closeSignupPopup();
     }
-});
-
-// Handle signup form submission (For future backend integration)
-document.getElementById("signup-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    alert("Signup Successful! (Backend Integration Needed)");
-    closeSignupPopup();
 });
 
 
@@ -263,32 +252,83 @@ window.addEventListener("click", function (event) {
 // });
 
 
-// login for db
+// // login for db
 
-document.getElementById("signin-form").addEventListener("submit", async function(event) {
-  event.preventDefault();
+// document.getElementById("signin-form").addEventListener("submit", async function(event) {
+//   event.preventDefault();
 
-  const email = document.getElementById("loginemail").value;
-  const password = document.getElementById("loginpassword").value;
+//   const email = document.getElementById("loginemail").value;
+//   const password = document.getElementById("loginpassword").value;
 
-  const loginData = {  email, password };
+//   const loginData = {  email, password };
 
-  try {
-      const response = await fetch("http://localhost:6050/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(loginData),
-      });
+//   try {
+//       const response = await fetch("http://localhost:6050/api/auth/login", {
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify(loginData),
+//       });
 
-      const data = await response.json();
-      if (response.ok) {
-          alert("loggedin  successfully!");
-          closeSigninPopup();
-      } else {
-          alert(`Error: ${data.message}`);
-      }
-  } catch (error) {
-      console.error("Contact Form Error:", error);
-      alert("Something went wrong!");
+//       const data = await response.json();
+//       if (response.ok) {
+//           alert("loggedin  successfully!");
+//           closeSigninPopup();
+//       } else {
+//           alert(`Error: ${data.message}`);
+//       }
+//   } catch (error) {
+//       alert("Something went wrong!");
+//   }
+// });
+
+
+
+BASE_URL='http://localhost:6050/api/auth';
+ // Signup
+ document.getElementById('signup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    password: document.getElementById('password').value
+  };
+
+  const res = await fetch(`${BASE_URL}/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  alert(result.message || 'Signup complete!');
+  form.reset();
+  closeSignupPopup();
+});
+
+// Signin
+document.getElementById('signin-popup').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    email:document.getElementById("loginemail").value,
+    password: document.getElementById("loginpassword").value
+  };
+
+  const res = await fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    alert('Signin successful!');
+    localStorage.setItem('token', result.token); // Save JWT
+  } else {
+    alert(result.message || 'Signin failed.');
   }
+
+  form.reset();
+  closeSigninPopup()
 });
