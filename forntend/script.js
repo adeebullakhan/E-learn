@@ -1,4 +1,7 @@
   document.addEventListener("DOMContentLoaded", function () {
+
+
+
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartText = document.querySelector(".nav_cart");
     const cartSidebar = document.getElementById("cart-sidebar");
@@ -72,12 +75,14 @@
         const course = this.closest(".course");
         const courseName = course.dataset.course;
         const courseImage = course.querySelector("img").src;
+        const courseTitle = course.querySelector("h3").innerText;
         const courseDesc = course.querySelector("p").innerText;
         const coursePrice = (Math.random() * (99 - 30) + 30).toFixed(2); // Random price between $30 and $99
 
         // Create Item Object
         const cartItem = {
           name: courseName,
+          title: courseTitle,
           image: courseImage,
           description: courseDesc,
           price: parseFloat(coursePrice),
@@ -97,6 +102,9 @@
       }
 
       alert("Checkout successful! Thank you for your purchase.");
+      console.log("Checked-out courses:", cart);
+      // Save checked-out courses to localStorage
+      localStorage.setItem("checkedOutCourses", JSON.stringify(cart));
       cart = [];
       updateCartUI();
       checkout(); /// changes 1
@@ -244,44 +252,6 @@ window.addEventListener("click", function (event) {
     }
 });
 
-// Prevent form submission (For now, it just shows an alert)
-// document.getElementById("signin-form").addEventListener("submit", function (event) {
-//     event.preventDefault();
-//     alert("Sign In Successful! (Backend Integration Needed)");
-//     closeSigninPopup();
-// });
-
-
-// // login for db
-
-// document.getElementById("signin-form").addEventListener("submit", async function(event) {
-//   event.preventDefault();
-
-//   const email = document.getElementById("loginemail").value;
-//   const password = document.getElementById("loginpassword").value;
-
-//   const loginData = {  email, password };
-
-//   try {
-//       const response = await fetch("http://localhost:6050/api/auth/login", {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify(loginData),
-//       });
-
-//       const data = await response.json();
-//       if (response.ok) {
-//           alert("loggedin  successfully!");
-//           closeSigninPopup();
-//       } else {
-//           alert(`Error: ${data.message}`);
-//       }
-//   } catch (error) {
-//       alert("Something went wrong!");
-//   }
-// });
-
-
 
 BASE_URL='http://localhost:6050/api/auth';
  // Signup
@@ -332,3 +302,36 @@ document.getElementById('signin-popup').addEventListener('submit', async (e) => 
 
   form.reset();
 });
+
+
+// chatbot script
+  function toggleChatbot() {
+    const box = document.getElementById('chatbot-box');
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    appendMessage("You", message);
+    input.value = "";
+
+    const res = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message }),
+    });
+
+    const data = await res.json();
+    appendMessage("AI", data.reply);
+  }
+
+  function appendMessage(sender, text) {
+    const container = document.getElementById('chatbot-messages');
+    const msg = document.createElement('div');
+    msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+  }

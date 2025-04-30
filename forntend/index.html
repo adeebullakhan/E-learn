@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-learn</title>
+    <title>Tutoo</title>
     
          <script src="https://cdn.tailwindcss.com"></script>   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,7 +13,7 @@
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
         <div class="container mx-auto px-6 lg:px-20 flex justify-between items-center py-4">
           <!-- Logo -->
-          <h1 class="text-3xl font-bold text-blue-600">e-Learn</h1>
+          <h1 class="text-3xl font-bold text-blue-600">Tutoo</h1>
           
           <!-- Navigation Links -->
           <ul class="hidden md:flex space-x-6 text-lg font-medium text-gray-700">
@@ -39,16 +39,6 @@
         </div>
       </nav>
       
-      <!-- Cart Sidebar Drawer -->
-
-
-
-      <!-- <div class="cart-sidebar">
-        <h2 class="text-xl font-bold">Cart</h2>
-        <div id="cart-items"></div>
-        <p>Total: <span id="total-amount">$0.00</span></p>
-        <button id="checkout-btn" onclick="checkout()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Checkout</button>
-    </div> -->
     
 <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 p-6 z-50">
     <div class="flex justify-between items-center mb-4">
@@ -183,6 +173,25 @@
       &copy; 2025 E-Learn. All Rights Reserved.
     </div>
   </footer>
+
+
+  // chatbot integration
+
+  <!-- Chatbot Button -->
+<div id="chatbot-icon" onclick="toggleChatbot()">
+  💬
+</div>
+
+<!-- Chat Window -->
+<div id="chatbot-box">
+  <div id="chatbot-header">AI Tutor <span onclick="toggleChatbot()">✖</span></div>
+  <div id="chatbot-messages"></div>
+  <div id="chatbot-input">
+    <input type="text" id="chat-input" placeholder="Ask a question..." />
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
   
   
 <!-- Signup Popup -->
